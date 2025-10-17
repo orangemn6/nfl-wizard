@@ -46,18 +46,23 @@ This app ranks NFL players and team defenses for the upcoming season using a wei
 
 ### Usage
 
-1. **Install dependencies:**
+1. **Navigate to the archive directory:**
    ```bash
-   pip install -r archive/requirements.txt
+   cd archive
    ```
 
-2. **Run the app:**
+2. **Install dependencies:**
    ```bash
-   python archive/main.py
+   pip install -r requirements.txt
    ```
 
-3. **Output:**
-   - `nfl_rankings.pdf` will be generated in the project directory.
+3. **Run the app:**
+   ```bash
+   python main.py
+   ```
+
+4. **Output:**
+   - `nfl_rankings.pdf` will be generated in the archive directory.
 
 ## Algorithm Details
 
