@@ -34,7 +34,7 @@ This app ranks NFL players and team defenses for the upcoming season using a wei
    
    Or use Maven directly:
    ```bash
-   mvn exec:java -Dexec.mainClass="com.nflwizard.Main"
+   mvn exec:java
    ```
 
 3. **Output:**
