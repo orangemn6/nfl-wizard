@@ -42,16 +42,18 @@ This app ranks NFL players and team defenses for the upcoming season using a wei
 
 ## Python Version (Legacy)
 
+**Note:** Python files have been moved to the `archive/` folder.
+
 ### Usage
 
 1. **Install dependencies:**
    ```bash
-   pip install -r requirements.txt
+   pip install -r archive/requirements.txt
    ```
 
 2. **Run the app:**
    ```bash
-   python main.py
+   python archive/main.py
    ```
 
 3. **Output:**
@@ -75,14 +77,14 @@ This app ranks NFL players and team defenses for the upcoming season using a wei
 - **service/Ranker.java**: Ranks players and defenses
 - **service/PDFExporter.java**: Generates PDF report using iText
 
-### Python Implementation (Legacy)
+### Python Implementation (Legacy - in archive/ folder)
 
-- `main.py`: Orchestrates workflow
-- `data_fetcher.py`: Fetches and filters data
-- `stats_analyzer.py`: Calculates stat weights
-- `ranker.py`: Ranks players and defenses
-- `pdf_exporter.py`: Generates PDF report
-- `requirements.txt`: Python dependencies
+- `archive/main.py`: Orchestrates workflow
+- `archive/data_fetcher.py`: Fetches and filters data
+- `archive/stats_analyzer.py`: Calculates stat weights
+- `archive/ranker.py`: Ranks players and defenses
+- `archive/pdf_exporter.py`: Generates PDF report
+- `archive/requirements.txt`: Python dependencies
 
 ## Dependencies
 
