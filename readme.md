@@ -3,8 +3,10 @@
 ## Overview
 This app ranks NFL players and team defenses for the upcoming season using a weighted combination of advanced stats. Rankings are exported to a multi-page PDF, with top PPR share players highlighted.
 
+**Now available in Java!** The application has been fully refactored to Java with Maven for improved performance and enterprise-ready architecture.
+
 ## Features
-- Fetches player and defense stats for the next NFL season using `nfl-data-py`
+- Fetches player and defense stats for the next NFL season
 - Filters for active players only
 - Calculates stat weights based on historical correlation with fantasy points
 - Ranks top 45 players per offensive position (QB, RB, WR, TE)
@@ -12,15 +14,43 @@ This app ranks NFL players and team defenses for the upcoming season using a wei
 - Exports results to PDF (each position/defense on a separate page)
 - Highlights top performers in PPR share
 
-## Usage
+## Java Version (Recommended)
+
+### Prerequisites
+- Java 11 or higher
+- Maven 3.6 or higher
+
+### Usage
+
+1. **Build the application:**
+   ```bash
+   mvn clean package
+   ```
+
+2. **Run the app:**
+   ```bash
+   java -jar target/nfl-wizard-1.0.0.jar
+   ```
+   
+   Or use Maven directly:
+   ```bash
+   mvn exec:java
+   ```
+
+3. **Output:**
+   - `nfl_rankings.pdf` will be generated in the project directory.
+
+## Python Version (Legacy)
+
+### Usage
 
 1. **Install dependencies:**
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 
 2. **Run the app:**
-   ```
+   ```bash
    python main.py
    ```
 
@@ -33,17 +63,37 @@ This app ranks NFL players and team defenses for the upcoming season using a wei
 - **Weight Calculation:** Pearson correlation between each stat and PPR share, normalized to sum to 1
 - **Ranking:** Weighted sum of normalized stats for each player; team defenses ranked by normalized defensive stats
 
-## File Structure
+## Architecture
+
+### Java Implementation (src/main/java/com/nflwizard/)
+
+- **Main.java**: Orchestrates workflow
+- **model/Player.java**: Player data model
+- **model/Defense.java**: Defense data model
+- **service/DataFetcher.java**: Fetches and filters NFL data
+- **service/StatsAnalyzer.java**: Calculates stat weights using Pearson correlation
+- **service/Ranker.java**: Ranks players and defenses
+- **service/PDFExporter.java**: Generates PDF report using iText
+
+### Python Implementation (Legacy)
 
 - `main.py`: Orchestrates workflow
 - `data_fetcher.py`: Fetches and filters data
 - `stats_analyzer.py`: Calculates stat weights
 - `ranker.py`: Ranks players and defenses
 - `pdf_exporter.py`: Generates PDF report
-- `requirements.txt`: Dependencies
+- `requirements.txt`: Python dependencies
 
 ## Dependencies
 
+### Java
+- Apache Commons Math (statistical calculations)
+- iText (PDF generation)
+- Jackson (JSON processing)
+- Apache HttpClient (API calls)
+- SLF4J (logging)
+
+### Python (Legacy)
 - pandas
 - reportlab
 - nfl-data-py
