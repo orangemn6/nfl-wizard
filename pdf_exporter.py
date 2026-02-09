@@ -19,6 +19,67 @@ def export_pdf(ranked_players: pd.DataFrame, ranked_defenses: pd.DataFrame):
     HEADER_Y_OFFSET = 50
     START_Y = height - 80
     
+    def draw_documentation_page():
+        """Draws the first page explaining the methodology."""
+        c.setFont("Helvetica-Bold", 24)
+        c.setFillColor(colors.darkblue)
+        c.drawString(MARGIN_LEFT, height - 50, "NFL Wizard: Ranking Methodology")
+        
+        c.setFont("Helvetica", 12)
+        c.setFillColor(colors.black)
+        y = height - 100
+        line_height = 14
+        
+        # Introduction
+        lines = [
+            "This report ranks NFL players and defenses based on advanced statistical models.",
+            "The goal is to identify high-upside performers using historical data correlations.",
+            "",
+            "1. Player Scoring Algorithm",
+            "---------------------------",
+            "Player rankings are determined by a 'Weighted Efficiency Score'.",
+            "",
+            "Step A: Weight Calculation",
+            "We calculate the weight of various advanced statistics based on their correlation",
+            "with a player's PPR (Points Per Reception) Share. Stats with higher correlation",
+            "receive higher weights. The weights are normalized to sum to 1.",
+            "",
+            "Key Statistics Used:",
+            "  - Target Share (tgt_sh)",
+            "  - Air Yards Share (ay_sh)",
+            "  - Weighted Opportunity Rating (wopr_x, wopr_y)",
+            "  - Yards After Catch Share (yac_sh)",
+            "  - Dominator Rating (dom, w8dom)",
+            "  - Yards Per Team Pass Attempt (yptmpa)",
+            "",
+            "Step B: Normalization (Z-Score)",
+            "To compare different stats on the same scale, we normalize each stat:",
+            "  Z = (Value - Average) / Standard Deviation",
+            "This tells us how many standard deviations a player is above or below the league average.",
+            "",
+            "Step C: Final Score",
+            "  Score = Sum(Normalized_Stat * Weight)",
+            "",
+            "2. Defense Scoring Algorithm",
+            "----------------------------",
+            "Defenses are ranked by aggregating individual player stats (DL, LB, DB) per team.",
+            "The score is a simple sum of normalized values for:",
+            "  - Total Sacks",
+            "  - Total Fantasy Points",
+            "  - PPR Fantasy Points",
+            "",
+            "3. Visual Key",
+            "------------",
+            "Players highlighted in RED have a PPR Share > 15%, indicating they are a",
+            "focal point of their team's offense."
+        ]
+        
+        for line in lines:
+            c.drawString(MARGIN_LEFT, y, line)
+            y -= line_height
+            
+        c.showPage()
+
     def draw_header(title, is_defense=False):
         c.setFont("Helvetica-Bold", 18)
         c.setFillColor(colors.darkblue)
@@ -50,15 +111,6 @@ def export_pdf(ranked_players: pd.DataFrame, ranked_defenses: pd.DataFrame):
 
         score_col = "def_score" if is_defense else "score"
 
-        for idx, row in df.iterrows():
-            # Rank (based on index in the sorted df provided)
-            # We can't rely on 'idx' because it's the original dataframe index.
-            # We need a counter. But iterrows doesn't give a counter.
-            # We can use enumerate on the df rows, but df.iterrows() yields (index, Series).
-            # The calling loop slices the df, so the row order is the rank.
-            # Let's handle rank in the loop below.
-            pass
-        
         # Re-implementing loop with enumerate for ranking
         for rank, (_, row) in enumerate(df.iterrows(), 1):
             
@@ -140,6 +192,9 @@ def export_pdf(ranked_players: pd.DataFrame, ranked_defenses: pd.DataFrame):
                 y = START_Y
         
         c.showPage()
+
+    # --- Draw Documentation Page ---
+    draw_documentation_page()
 
     # Top 15 for each offensive position
     if "position" in ranked_players.columns:
